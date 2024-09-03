@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 using namespace std;
@@ -34,13 +35,30 @@ same then both houses are identical otherwise they are different
 
 int main()
 {
-    ifstream in("data.txt"); // input file
-    ofstream out("output.txt"); // output file
+    ifstream in("./data.txt"); // input file
+    ofstream out("./output.txt"); // output file
 
     vector<houseType> houses; // vector of houses with their details
     houseType house; // for manual data entry
     houseType house1, house2; // for comparison
     int choice = 9;
+
+    if (!in)
+    {
+        cout << "File does not exist." << endl;
+        return 1;
+    }
+
+    if (!in.is_open())
+    {
+        cout << "1. Error opening input file." << endl;
+        return 1;
+    }
+    else if (!out.is_open())
+    {
+        cout << "2. Error opening output file." << endl;
+        return 1;
+    }
 
 
     while (choice != 0)
@@ -111,7 +129,10 @@ void print(vector<houseType>& houses, ofstream& out)
 
     for (int i = 0; i < houses.size(); i++)
     {
-        out << houses[i].style << endl;
+        cout << left << setw(20) << houses[i].style << setw(20) << houses[i].numBedrooms << setw(20) << houses[i].numBathrooms; 
+        cout << left << houses[i].numCarsGarage << setw(20) << houses[i].yearBuilt << setw(20) << houses[i].finishedSquareFootage;
+        cout << left << houses[i].price << houses[i].tax << endl;
+        
     }
 
     return;
