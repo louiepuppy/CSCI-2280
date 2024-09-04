@@ -125,11 +125,11 @@ void print(vector<houseType>& houses)
 
 void print(vector<houseType>& houses, ofstream& out)
 {
-    out << left << setw(20) << "Style" << setw(20) << "Bedrooms" << setw(20) << "Bathrooms" << setw(20) << "Garage Capacity" << setw(20) << "Year Built" << setw(20) << "Square Footage" << setw(20) << "Price" << setw(20) << "Tax" << endl;
+    out << left << setw(15) << "Style" << setw(15) << "Bedrooms" << setw(15) << "Bathrooms" << setw(20) << "Garage Capacity" << setw(18) << "Year Built" << setw(20) << "Square Footage" << setw(15) << "Price" << setw(15) << "Tax" << endl;
 
     for (int i = 0; i < houses.size(); i++)
     {
-        out << left << setw(20) << houses[i].style << setw(20) << houses[i].numBedrooms << setw(20) << houses[i].numBathrooms << houses[i].numCarsGarage << setw(20) << houses[i].yearBuilt << setw(20) << houses[i].finishedSquareFootage << setw(20) << "$" << houses[i].price << setw(20) << "$" << houses[i].tax << endl;
+        out << left << setw(18) << houses[i].style << setw(15) << houses[i].numBedrooms << setw(15) << houses[i].numBathrooms << setw(20) << houses[i].numCarsGarage << setw(20) << houses[i].yearBuilt << setw(15) << houses[i].finishedSquareFootage << "$" << houses[i].price << "       $" << houses[i].tax << endl;
         
     }
 
