@@ -63,6 +63,8 @@ void House::print(vector<House>& houses)
         cout << left << setw(18) << houses[i].style << setw(15) << houses[i].numBedrooms << setw(15) << houses[i].numBathrooms << setw(20) << houses[i].numCarsGarage << setw(20) << houses[i].yearBuilt << setw(15) << houses[i].finishedSquareFootage << "$" << houses[i].price << "       $" << houses[i].tax << endl;
     }
 
+    cout << endl;
+
     return;
 }
 
@@ -314,7 +316,7 @@ void searchHouses(vector<House>& houses)
         }
         else
         {
-            cout << "The house you are looking for is found in location " << mid << "of the list.";
+            cout << "The house you are looking for is found in location " << mid + 1 << " of the list.";
             return;
         }
     }
