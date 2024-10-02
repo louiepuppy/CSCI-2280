@@ -2,40 +2,21 @@
 #include <string>
 using namespace std;
 
-// Step 1: Define class ContactNode
-
-// Step 2: Define main() to read the name and phone number for three contacts and output each contact.
-// Create three ContactNodes and use the nodes to build a linked list.
-
-// Step 3: Output the linked list. Use a loop to call each node's PrintContactNode().
-
-
 class ContactNode
 {
 public:
-    /* Declare member functions here */
     string GetName();
     string GetPhoneNumber();
     void InsertAfter(ContactNode *newNode);
     ContactNode *GetNext();
     void PrintContactNode();
-    ContactNode();
     ContactNode(string initName, string initPhoneNumber);
 
 private:
-    /* Declare data members here */
     string contactName;
     string contactPhoneNumber;
     ContactNode *nextNodePtr;
 };
-
-/* Define member functions here */
-ContactNode::ContactNode()
-{
-    this->contactName = "";
-    this->contactPhoneNumber = "";
-    this->nextNodePtr = nullptr;
-}
 
 ContactNode::ContactNode(string initName, string initPhoneNumber)
 {
@@ -58,7 +39,6 @@ void ContactNode::InsertAfter(ContactNode *newNode)
 {
     newNode->nextNodePtr = this->nextNodePtr;
     this->nextNodePtr = newNode;
-    return;
 }
 
 ContactNode *ContactNode::GetNext()
@@ -68,50 +48,46 @@ ContactNode *ContactNode::GetNext()
 
 void ContactNode::PrintContactNode()
 {
-    // output contact info from linked list
-    cout << "Name: " << contactName << endl << "Phone Number: " << contactPhoneNumber << endl << endl;  // Output the contact's name and phone number
-    return;
+    cout << "Name: " << contactName << endl
+         << "Phone Number: " << contactPhoneNumber << endl << endl;
 }
 
 int main()
 {
-    /* Type your code here. */
-    // Read the name and phone number for three contacts
-    // Create three ContactNode objects and use the objects to build a linked list
-    // Output the linked list using a loop to call each node's PrintContactNode() method
     string name, phoneNumber;
-    ContactNode *head = nullptr;
 
-    for (int i = 0; i < 3; i++)
+    getline(cin, name);
+    getline(cin, phoneNumber);
+    ContactNode *head = new ContactNode(name, phoneNumber);
+
+    ContactNode *current = head;
+
+    for (int i = 1; i < 3; ++i)
     {
-        int j = i + 1;
         getline(cin, name);
         getline(cin, phoneNumber);
-        ContactNode person(name, phoneNumber);
+        ContactNode *newNode = new ContactNode(name, phoneNumber);
 
-        cout << "Person " << j << ": " << person.GetName() << ", " << person.GetPhoneNumber() << endl; 
-
-        if (i > 0)
-        {
-            ContactNode *current = head;
-            while (current->GetNext()!= nullptr)
-            {
-                current = current->GetNext();
-            }
-            current->InsertAfter(&person);
-        }
-        else
-        {
-            head = &person;
-        }
+        current->InsertAfter(newNode);
+        current = newNode;
     }
 
-    // Output the linked list
-    ContactNode *current = head;
-    for (int i = 0; i < 3; i++)
+    cout << "Outputting linked list:" << endl;
+    current = head;
+
+    while (current != nullptr)
     {
-        current->PrintContactNode();
         current = current->GetNext();
+        current->PrintContactNode();
+    }
+
+    current = head;
+    while (current != nullptr)
+    {
+        ContactNode *temp = current->GetNext();
+
+        delete current;
+        current = temp;
     }
 
     return 0;
