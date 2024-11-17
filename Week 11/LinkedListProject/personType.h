@@ -24,7 +24,7 @@ public:
     string getPhoneNumber();
     void setRelationship(string relationship);
     string getRelationship();
-    void display();
+    void displayPerson();
 };
 
 personType::personType(string firstName, string lastName, int age, string phoneNumber, string relationship)
@@ -76,7 +76,7 @@ string personType::getRelationship()
     return relationship;
 }
 
-void personType::display()
+void personType::displayPerson()
 {
     cout << "Name: " << firstName << " " << lastName << endl;
 }
