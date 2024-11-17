@@ -112,26 +112,21 @@ int main()
 {
     coord object1(10, 10), object2(5, 3), object3;
     cout << "The value of object1 is " << endl;
-    // object1.show();
     cout << object1 << endl;
 
     cout << "The value of object2 is " << endl;
-    // object2.show();
     cout << object2 << endl;
 
     object3 = object1 + object2;
     cout << "The sum of object1 and object2 is " << endl;
-    // object3.show();
     cout << object3 << endl;
 
     object3 = object1 - object2;
     cout << "The difference of object1 and object2 is " << endl;
-    // object3.show();
     cout << object3 << endl;
 
     object3 = object1;
     cout << "The values of object1 have been copied to object3 is " << endl;
-    // object3.show();
     cout << object3 << endl;
 
     cout << "Are object1 and object3 equal?" << (object1 == object3? "Yes" : "No") << endl;
