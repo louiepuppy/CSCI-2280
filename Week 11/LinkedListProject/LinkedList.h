@@ -1,6 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include <iostream>
+#include <fstream>
 #include "AddressBookType.h"
 using namespace std;
 
@@ -24,18 +25,21 @@ public:
     void sortAddressBook();
     AddressBookType searchAddressBook(string);
     void displayList();
+    void saveToFile();
 };
 
 void LinkedList::appendNode(AddressBookType newValue)
 {
     ListNode *newNode, *nodePtr;
 
+    // create and init new node
     newNode = new ListNode;
     newNode->value = newValue;
-    newNode->next = NULL;
+    newNode->next = nullptr;
     
     if (!head) {
         head = newNode;
+        cout << "Added as first node." << endl;
     }
     else
     {
@@ -45,16 +49,25 @@ void LinkedList::appendNode(AddressBookType newValue)
             nodePtr = nodePtr->next;
         }
         nodePtr->next = newNode;
+        cout << "Added as subsequent node." << endl;
     }
 }
 
 void LinkedList::displayList()
 {
     ListNode *nodePtr;
+    int count = 0;
+
+    if (!head)
+    {
+        cout << "Address book is empty!" << endl;
+    }
 
     nodePtr = head;
+
     while (nodePtr)
     {
+        cout << "Entry #" << ++count << endl;
         cout << nodePtr->value.getFirstName() << " " << nodePtr->value.getLastName() << endl;
         cout << nodePtr->value.getMonth() << "/" << nodePtr->value.getDay() << "/" << nodePtr->value.getYear() << endl;
         cout << nodePtr->value.getStreetAddress() << endl;
@@ -62,8 +75,41 @@ void LinkedList::displayList()
         cout << nodePtr->value.getPhoneNumber() << endl;
         cout << nodePtr->value.getRelationship() << endl
              << endl;
+        
         nodePtr = nodePtr->next;
     }
+    cout << "Total entries: " << count << endl
+         << endl;
+}
+
+void LinkedList::saveToFile()
+{
+    ofstream outFile("address_book.txt");
+    ListNode *nodePtr;
+    int count = 0;
+
+    if (!head)
+    {
+        cout << "Address book is empty!" << endl;
+    }
+
+    nodePtr = head;
+
+    while (nodePtr)
+    {
+        outFile << "Entry #" << ++count << endl;
+        outFile << nodePtr->value.getFirstName() << " " << nodePtr->value.getLastName() << endl;
+        outFile << nodePtr->value.getMonth() << "/" << nodePtr->value.getDay() << "/" << nodePtr->value.getYear() << endl;
+        outFile << nodePtr->value.getStreetAddress() << endl;
+        outFile << nodePtr->value.getCity() << ", " << nodePtr->value.getState() << " " << nodePtr->value.getZipCode() << endl;
+        outFile << nodePtr->value.getPhoneNumber() << endl;
+        outFile << nodePtr->value.getRelationship() << endl
+             << endl;
+        
+        nodePtr = nodePtr->next;
+    }
+    cout << "Total entries: " << count << endl
+         << endl;
 }
 
 void LinkedList::insertNode(AddressBookType newValue)
@@ -134,47 +180,53 @@ void LinkedList::deleteNode(AddressBookType searchValue)
 
 void LinkedList::sortAddressBook()
 {
-    ListNode *nodePtr, *nextNode, *temp;
-    
-    if (head == NULL)
+    if (!head || !head->next) return;  // Empty list or single node
+
+    bool swapped;
+    ListNode* ptr1;
+    ListNode* lptr = NULL;
+
+    do
     {
-        return;
-    }
-    
-    for (nodePtr = head; nodePtr!= NULL; nodePtr = nodePtr->next)
-    {
-        for (nextNode = nodePtr->next; nextNode!= NULL; nextNode = nextNode->next)
+        swapped = false;
+        ptr1 = head;
+
+        while (ptr1->next != lptr)
         {
-            if (nodePtr->value.getLastName() > nextNode->value.getLastName())
+            if (ptr1->value.getLastName() > ptr1->next->value.getLastName())
             {
-                temp = nodePtr->next;
-                nodePtr->next = nextNode->next;
-                nextNode->next = nodePtr;
-                nodePtr = temp;
+                // Swap the values instead of the nodes
+                AddressBookType temp = ptr1->value;
+                ptr1->value = ptr1->next->value;
+                ptr1->next->value = temp;
+                swapped = true;
             }
+            ptr1 = ptr1->next;
         }
-        head = nodePtr; // Update head pointer to the smallest value node after sorting
+        lptr = ptr1;
     }
-    
-    cout << "Address book sorted successfully." << endl;
+    while (swapped);
+
+    cout << "Address book sorted successfully." << endl
+         << endl;
 }
+
 
 AddressBookType LinkedList::searchAddressBook(string searchValue)
 {
-    ListNode *nodePtr;
+    ListNode* nodePtr = head;
     
-    nodePtr = head;
-    while (nodePtr!= NULL && nodePtr->value.getLastName()!= searchValue)
+    while (nodePtr != NULL)
     {
-        nodePtr = nodePtr->next;
-        if (nodePtr == NULL)
+        if (nodePtr->value.getLastName() == searchValue)
         {
-            cout << "Person not found." << endl;
-            return AddressBookType(); // Return an empty AddressBookType if not found
+            return nodePtr->value;
         }
-        return nodePtr->value; // Return the found AddressBookType
+        nodePtr = nodePtr->next;
     }
-    return AddressBookType(); // Return an empty AddressBookType if not found
+    
+    cout << "Person not found." << endl;
+    return AddressBookType(); // Return empty AddressBookType if not found
 }
 
 
