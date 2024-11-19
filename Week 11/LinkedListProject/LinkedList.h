@@ -22,6 +22,8 @@ public:
     void appendNode(AddressBookType);
     void insertNode(AddressBookType);
     void deleteNode(AddressBookType);
+    AddressBookType getNext();
+    bool getHead();
     void sortAddressBook();
     AddressBookType searchAddressBook(string);
     void displayList();
@@ -178,6 +180,16 @@ void LinkedList::deleteNode(AddressBookType searchValue)
     }
 }
 
+AddressBookType LinkedList::getNext()
+{
+    if (!head)
+        return AddressBookType();
+        
+    AddressBookType temp = head->value;
+    head = head->next;
+    return temp;
+}
+
 void LinkedList::sortAddressBook()
 {
     if (!head || !head->next) return;  // Empty list or single node
@@ -229,7 +241,17 @@ AddressBookType LinkedList::searchAddressBook(string searchValue)
     return AddressBookType(); // Return empty AddressBookType if not found
 }
 
-
+bool LinkedList::getHead()
+{
+    if (head == nullptr)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
 LinkedList::~LinkedList()
 {
