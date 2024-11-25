@@ -4,6 +4,10 @@
         "xstring": "cpp",
         "istream": "cpp",
         "fstream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "algorithm": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "iosfwd": "cpp"
     }
 }

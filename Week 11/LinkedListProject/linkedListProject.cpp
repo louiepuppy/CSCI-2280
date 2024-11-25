@@ -26,9 +26,6 @@ void menu(LinkedList &);
 void readFromInputFile(LinkedList &);
 void addEntry(LinkedList &);
 void deleteEntry(LinkedList &);
-void findSameBirthMonths(LinkedList &);
-void findBetweenTwoLastNames(LinkedList &);
-void printAllRelationshipType(LinkedList &);
 
 using namespace std;
 
@@ -56,7 +53,7 @@ void menu(LinkedList &addressBook)
         cout << "4. print address/phone number/DOB of a person (by last name)" << endl;
         cout << "5. print names of all people with the same birth month" << endl;
         cout << "6. print names of all people between two last names" << endl;
-        cout << "7. print all family/friends/business associates" << endl;
+        cout << "7. print all Family/Friends/Business associates" << endl;
         cout << "8. add new entry" << endl;
         cout << "9. delete entry" << endl;
         cout << "10. save data to file" << endl;
@@ -94,13 +91,13 @@ void menu(LinkedList &addressBook)
                  << endl;
             break;
         case 5:
-            findSameBirthMonths(addressBook);
+            addressBook.findSameBirthMonths();
             break;
         case 6:
-            findBetweenTwoLastNames(addressBook);
+            addressBook.findBetweenTwoLastNames();
             break;
         case 7:
-            printAllRelationshipType(addressBook);
+            addressBook.printAllRelationshipType();
             break;
         case 8:
             addEntry(addressBook);
@@ -230,59 +227,4 @@ void deleteEntry(LinkedList &addressBook)
     addressBook.deleteNode(temp);
 
     cout << "Entry with last name " << lastName << " deleted from the address book." << endl;
-}
-
-void findSameBirthMonths(LinkedList &addressBook)
-{
-    AddressBookType temp;
-    int month;
-    cout << "Enter the birth month (1-12): ";
-    cin >> month;
-
-    // FIXME: doesn't output ALL entries with the same birth month
-    // also forever loop
-    temp = addressBook.getNext();
-    while (addressBook.getHead())
-    {
-        if (temp.getMonth() == month)
-        {
-            temp.displayAddressBook();
-            temp = addressBook.getNext();
-        }
-    }
-    cout << "No more entries with the same birth month." << endl
-         << endl;
-}
-
-void findBetweenTwoLastNames(LinkedList &addressBook)
-{
-    AddressBookType temp;
-    string lastName1, lastName2;
-    cout << "Enter the first last name: ";
-    cin >> lastName1;
-    cout << "Enter the second last name: ";
-    cin >> lastName2;
-
-    // FIXME: does nothing
-    cout << "Addresses between " << lastName1 << " and " << lastName2 << ":" << endl;
-    while (addressBook.getHead())
-    {
-        temp = addressBook.getNext();
-        if (temp.getLastName() > lastName1 && temp.getLastName() < lastName2)
-        {
-            temp.displayAddressBook();
-        }
-    }
-    cout << "No more entries found between " << lastName1 << " and " << lastName2 << "." << endl
-         << endl;
-}
-
-void printAllRelationshipType(LinkedList &addressBook)
-{
-    AddressBookType temp;
-    string relationshipType;
-    cout << "Enter the relationship type: ";
-    cin >> relationshipType;
-
-    // TODO: implement this as well (╥﹏╥)
 }

@@ -1,0 +1,48 @@
+Entry #1
+Brave Balto
+2/6/1975
+Disney Road
+Orlando, Florida 35672
+415-782-5555
+Business
+
+Entry #2
+Bash Bashfull
+2/8/1965
+Long Road
+New York, New York 1101
+212-782-8000
+Friend
+
+Entry #3
+Donald Duck
+10/8/1980
+Disney Street
+Orlando, Florida 11234
+622-873-8920
+Friend
+
+Entry #4
+Goof Goofy
+2/6/1965
+Disney Street
+Los Angles, California 91340
+215-782-9000
+Family
+
+Entry #5
+Shelly Malik
+12/6/2000
+Lincoln Drive
+Omaha, Nebraska 68131
+402-555-1212
+Family
+
+Entry #6
+Chelsea Tomak
+12/6/1999
+Kennedy Blvd
+Omaha, Nebraska 68172
+402-777-8888
+Friend
+

@@ -7,7 +7,7 @@ using namespace std;
 
 class LinkedList : public AddressBookType
 {
-private:
+public:
     struct ListNode
     {
         AddressBookType value;
@@ -28,6 +28,9 @@ public:
     AddressBookType searchAddressBook(string);
     void displayList();
     void saveToFile();
+    void findSameBirthMonths();
+    void findBetweenTwoLastNames();
+    void printAllRelationshipType();
 };
 
 void LinkedList::appendNode(AddressBookType newValue)
@@ -192,7 +195,7 @@ AddressBookType LinkedList::getNext()
 
 void LinkedList::sortAddressBook()
 {
-    if (!head || !head->next) return;  // Empty list or single node
+    if (!head || !head->next) return;
 
     bool swapped;
     ListNode* ptr1;
@@ -264,6 +267,98 @@ LinkedList::~LinkedList()
         delete nodePtr;
         nodePtr = nextNode;
     }
+}
+
+void LinkedList::findSameBirthMonths()
+{
+    bool found = false;
+    int month;
+    
+    cout << "Enter the birth month (1-12): ";
+    cin >> month;
+    
+    if (month < 1 || month > 12) {
+        cout << "Invalid month. Please enter a number between 1 and 12." << endl;
+        return;
+    }
+    
+    ListNode *current = head;
+    
+    cout << "People born in month " << month << ":" << endl;
+    while (current != nullptr) {
+        if (current->value.getMonth() == month) {
+            cout << current->value.getFirstName() << " " 
+                 << current->value.getLastName() << endl;
+            found = true;
+        }
+        current = current->next;
+    }
+    
+    if (!found) {
+        cout << "No entries found with birth month " << month << "." << endl;
+    }
+    cout << endl;
+}
+
+void LinkedList::findBetweenTwoLastNames()
+{
+    string lastName1, lastName2;
+    bool found = false;
+    
+    cout << "Enter the first last name: ";
+    cin >> lastName1;
+    cout << "Enter the second last name: ";
+    cin >> lastName2;
+    
+    // Ensure lastName1 is lexicographically smaller than lastName2
+    if (lastName1 > lastName2) {
+        swap(lastName1, lastName2);
+    }
+    
+    ListNode *current = head;
+    
+    cout << "Addresses between " << lastName1 << " and " << lastName2 << ":" << endl;
+    
+    while (current != nullptr) {
+        if (current->value.getLastName() > lastName1 && 
+            current->value.getLastName() < lastName2) {
+            current->value.displayAddressBook();
+            found = true;
+        }
+        current = current->next;
+    }
+    
+    if (!found) {
+        cout << "No entries found between " << lastName1 << " and " 
+             << lastName2 << "." << endl;
+    }
+    cout << endl;
+}
+
+void LinkedList::printAllRelationshipType()
+{
+    string relationshipType;
+    bool found = false;
+    
+    cout << "Enter the relationship type (Family/Friend/Business): ";
+    cin >> relationshipType;
+    
+    ListNode *current = head;
+    
+    while (current != nullptr) {
+        string currentRelation = current->value.getRelationship();
+        
+        if (currentRelation == relationshipType) {
+            current->value.displayAddressBook();
+            found = true;
+        }
+        current = current->next;
+    }
+    
+    if (!found) {
+        cout << "No entries found with relationship type: " << relationshipType << endl;
+    }
+    cout << endl;
 }
 
 #endif // LINKEDLIST_H
